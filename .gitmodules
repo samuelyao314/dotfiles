@@ -2,3 +2,6 @@
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
 	ignore = dirty
+[submodule "vim_runtime"]
+	path = vim_runtime
+	url = https://github.com/amix/vimrc
