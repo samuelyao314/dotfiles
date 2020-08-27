@@ -14,7 +14,7 @@
 
 - link:
     ~/.zshrc:
-    ~/.p10k.zsh:
     ~/.vim_runtime:
     ~/.vimrc:
     ~/.local/bin:
+    ~/.local/etc:

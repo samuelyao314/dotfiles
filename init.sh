@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-set -x
 # 前提：chsh -s /bin/zsh
 
 LOCAL=$HOME/.local
@@ -29,10 +28,19 @@ echo "OSTYPE: $OSTYPE"
 
 
 #######################
+# homebrew
+#######################
+if [[ $OSTYPE  == 'darwin' ]]; then
+    if ! check_cmd "brew"; then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    fi
+fi
+
+#######################
 # antigen
 #######################
 if [[ ! -f $LOCAL/antigen.zsh  ]]; then
-   curl -L git.io/antigen > $LOCAL/antigen.zsh
+    curl -L git.io/antigen > $LOCAL/antigen.zsh
 fi
 
 #######################
@@ -43,7 +51,7 @@ if [[ ! -d $LOCAL/python  ]]; then
     PIP=$LOCAL/python/bin/pip
     $PIP install 'python-language-server[all]'
     $PIP install pylint isort jedi flake8
-    $PIP install yapf hererocks
+    $PIP install yapf hererocks thefuck
 fi
 
 #######################
@@ -81,17 +89,3 @@ if [[ ! -d $LOCAL/go ]]; then
     curl -sL ${GOURL} -o $GOTAR
     tar -zxvf $GOTAR -C $LOCAL
 fi
-
-
-#######################
-# Node
-#######################
-if [[ ! -d $LOCAL/node  ]]; then
-    mkdir -p $LOCAL/node
-    NODE_SCRIPT=/tmp/install-node.sh
-    curl -sL install-node.now.sh/lts -o $NODE_SCRIPT
-    chmod +x $NODE_SCRIPT
-    PREFIX=$LOCAL/node $NODE_SCRIPT -y
-fi
-
-
