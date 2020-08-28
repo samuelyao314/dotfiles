@@ -28,22 +28,6 @@ echo "OSTYPE: $OSTYPE"
 
 
 #######################
-# homebrew
-#######################
-if [[ $OSTYPE  == 'darwin' ]]; then
-    if ! check_cmd "brew"; then
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    fi
-fi
-
-#######################
-# antigen
-#######################
-if [[ ! -f $LOCAL/antigen.zsh  ]]; then
-    curl -L git.io/antigen > $LOCAL/antigen.zsh
-fi
-
-#######################
 # Python3
 #######################
 if [[ ! -d $LOCAL/python  ]]; then
@@ -65,6 +49,17 @@ if [[ -d $LOCAL/python ]]; then
 fi
 
 
+
+#######################
+# Golang
+#######################
+if [[ ! -d $LOCAL/go ]]; then
+    GOTAR=/tmp/go.tar.gz
+    GOURL=https://golang.org/dl/go1.15.${OSTYPE}-amd64.tar.gz
+    curl -sL ${GOURL} -o $GOTAR
+    tar -zxvf $GOTAR -C $LOCAL
+fi
+
 #######################
 # RUST
 #######################
@@ -78,14 +73,3 @@ for crate in fd-find ripgrep
 do
     $CARGO_HOME/bin/cargo install $crate
 done
-
-
-#######################
-# Golang
-#######################
-if [[ ! -d $LOCAL/go ]]; then
-    GOTAR=/tmp/go.tar.gz
-    GOURL=https://golang.org/dl/go1.15.${OSTYPE}-amd64.tar.gz
-    curl -sL ${GOURL} -o $GOTAR
-    tar -zxvf $GOTAR -C $LOCAL
-fi

@@ -13,7 +13,7 @@
   - sh init.sh
 
 - link:
-    ~/.zshrc:
+    ~/.bashrc:
     ~/.vim_runtime:
     ~/.vimrc:
     ~/.local/bin:
