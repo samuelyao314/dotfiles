@@ -82,11 +82,13 @@ done
 ################################
 # 根据操作系统，选择不同二进制
 ################################
+BIN_DIR=$LOCAL/bin
+BIN_DIR_2=$LOCAL/bin2  # 不会放入git仓库
 for name in fzf
 do
-    bin=$LOCAL/bin/${name}
-    if [[ ! -d ${bin} ]]; then
-        chmod a+x ${bin}.${OSTYPE}
-        ln -s ${bin}.${OSTYPE} ${bin}
+    exe=${BIN_DIR}/${name}
+    if [[ ! -d ${exe} ]]; then
+        chmod a+x ${exe}.${OSTYPE}
+        ln -s ${exe}.${OSTYPE} ${BIN_DIR_2}/${name}
     fi
 done

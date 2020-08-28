@@ -8,6 +8,7 @@
 
 - create:
    - ~/.local
+   - ~/.local/bin2
 
 - shell:
   - git submodule update --init --recursive

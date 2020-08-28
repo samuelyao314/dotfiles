@@ -17,7 +17,7 @@ esac
 # set PATH so it includes user's private bin if it exists
 LOCAL=$HOME/.local
 PATH=/usr/local/bin:$PATH
-PATH=$LOCAL/bin:$PATH
+PATH=$LOCAL/bin:$LOCAL/bin2:$PATH
 PATH=$LOCAL/python/bin:$PATH
 PATH=$LOCAL/lua/bin:$PATH
 PATH=$LOCAL/go/bin:$PATH
