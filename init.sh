@@ -60,6 +60,9 @@ if [[ ! -d $LOCAL/go ]]; then
     tar -zxvf $GOTAR -C $LOCAL
 fi
 
+
+
+
 #######################
 # RUST
 #######################
@@ -72,4 +75,18 @@ fi
 for crate in fd-find ripgrep
 do
     $CARGO_HOME/bin/cargo install $crate
+done
+
+
+
+################################
+# 根据操作系统，选择不同二进制
+################################
+for name in fzf
+do
+    bin=$LOCAL/bin/${name}
+    if [[ ! -d ${bin} ]]; then
+        chmod a+x ${bin}.${OSTYPE}
+        ln -s ${bin}.${OSTYPE} ${bin}
+    fi
 done
