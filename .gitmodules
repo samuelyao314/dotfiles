@@ -5,3 +5,6 @@
 [submodule "vim_runtime"]
 	path = vim_runtime
 	url = https://github.com/amix/vimrc
+[submodule "zlua"]
+	path = zlua
+	url = https://github.com/skywind3000/z.lua

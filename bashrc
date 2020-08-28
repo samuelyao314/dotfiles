@@ -28,6 +28,8 @@ export PATH
 # golang
 export GOROOT=$LOCAL/go
 
+# zlua
+eval "$(lua $LOCAL/zlua/z.lua --init bash enhanced once)"
 
 # execute post script if it exists
 if [ -f "$HOME/.local/etc/local.sh" ]; then
