@@ -1,6 +1,4 @@
-#!/usr/bin/env zsh
-# 前提：chsh -s /bin/zsh
-
+#!/usr/bin/env bash
 LOCAL=$HOME/.local
 
 err() {
@@ -31,7 +29,7 @@ echo "OSTYPE: $OSTYPE"
 # Python3
 #######################
 if [[ ! -d $LOCAL/python  ]]; then
-    python3 -m venv $LOCAL/python
+    virtualenv $LOCAL/python
     PIP=$LOCAL/python/bin/pip
     $PIP install 'python-language-server[all]'
     $PIP install pylint isort jedi flake8
@@ -44,7 +42,7 @@ fi
 if [[ -d $LOCAL/python ]]; then
     HEREROCKS=$LOCAL/python/bin/hererocks
     if [[ ! -d $LOCAL/lua ]]; then
-        $HEREROCKS $LOCAL/lua -l5.3 -rlatest
+        $HEREROCKS $LOCAL/lua -l5.4 -rlatest
     fi
 fi
 
@@ -55,27 +53,12 @@ fi
 #######################
 if [[ ! -d $LOCAL/go ]]; then
     GOTAR=/tmp/go.tar.gz
-    GOURL=https://golang.org/dl/go1.15.${OSTYPE}-amd64.tar.gz
+    GOVER="1.15.3"
+    GOURL="https://golang.org/dl/go${GOVER}.${OSTYPE}-amd64.tar.gz"
     curl -sL ${GOURL} -o $GOTAR
     tar -zxvf $GOTAR -C $LOCAL
 fi
 
-
-
-
-#######################
-# RUST
-#######################
-export RUSTUP_HOME=$LOCAL/rust
-export CARGO_HOME=$LOCAL/cargo
-if [[ ! -d $RUSTUP_HOME  ]]; then
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-fi
-
-for crate in fd-find ripgrep
-do
-    $CARGO_HOME/bin/cargo install $crate
-done
 
 
 
@@ -89,6 +72,6 @@ do
     exe=${BIN_DIR}/${name}
     if [[ ! -d ${exe} ]]; then
         chmod a+x ${exe}.${OSTYPE}
-        ln -s ${exe}.${OSTYPE} ${BIN_DIR_2}/${name}
+        ln -sf ${exe}.${OSTYPE} ${BIN_DIR_2}/${name}
     fi
 done

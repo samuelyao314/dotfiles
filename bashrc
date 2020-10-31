@@ -62,3 +62,5 @@ if [ -n "$BASH_VERSION" ]; then
 		fi
 	fi
 fi
+source ~/.lgameinitshellenv
+test -s ~/bin/bladefunctions && . ~/bin/bladefunctions || true
