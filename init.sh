@@ -47,7 +47,6 @@ if [[ -d $LOCAL/python ]]; then
 fi
 
 
-
 #######################
 # Golang
 #######################
@@ -60,6 +59,31 @@ if [[ ! -d $LOCAL/go ]]; then
 fi
 
 
+#######################
+# RUST
+#######################
+export RUSTUP_HOME=$LOCAL/rust
+export CARGO_HOME=$LOCAL/cargo
+if [[ ! -d $RUSTUP_HOME  ]]; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+fi
+
+for crate in fd-find ripgrep
+do
+    $CARGO_HOME/bin/cargo install $crate
+done
+
+
+#######################
+# Node
+#######################
+if [[ ! -d $LOCAL/node  ]]; then
+    mkdir -p $LOCAL/node
+    NODE_SCRIPT=/tmp/install-node.sh
+    curl -sL install-node.now.sh/lts -o $NODE_SCRIPT
+    chmod +x $NODE_SCRIPT
+    PREFIX=$LOCAL/node $NODE_SCRIPT -y
+fi
 
 
 ################################
